@@ -11,10 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppConfigurations {
-
-    final String queueName = "spring-boot";
-
+public class MessageConfig {
+    final static String queueName = "spring-boot";
+    public final static String topicExchangeName = "spring-boot-exchange";
 
     @Bean()
     Queue queue() {
@@ -24,7 +23,6 @@ public class AppConfigurations {
 
     @Bean
     TopicExchange exchange() {
-        String topicExchangeName = "spring-boot-exchange";
         return new TopicExchange(topicExchangeName);
     }
 
@@ -46,10 +44,11 @@ public class AppConfigurations {
 
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory factory, MessageListenerAdapter adapter) {
-
         final SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(factory);
         container.setQueueNames(queueName);
         container.setMessageListener(adapter);
+        container.setConcurrentConsumers(2);
         return container;
     }
 }

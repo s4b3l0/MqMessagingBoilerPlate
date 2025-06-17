@@ -8,7 +8,6 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import app.poc.secure.externalconsumerapp.rabbitmq.Receiver;
 
 @Component
 public class MessageConfig {

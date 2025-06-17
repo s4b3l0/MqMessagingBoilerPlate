@@ -1,8 +1,9 @@
-package com.example.rabbitmq;
+package com.example.demo.rabbitmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
@@ -12,8 +13,10 @@ public class Receiver {
 
 
     public void receiveMessage(String message) {
-        log.info(String.format("Received {}", message));
-        latch.countDown();
+        CompletableFuture.runAsync(() -> {
+            log.info(String.format("Received %s", message));
+        });
+
     }
 
 

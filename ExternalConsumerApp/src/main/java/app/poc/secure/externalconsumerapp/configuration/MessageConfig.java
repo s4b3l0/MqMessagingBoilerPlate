@@ -1,5 +1,4 @@
-package com.example.demo.configuration;
-import com.example.demo.rabbitmq.Receiver;
+package app.poc.secure.externalconsumerapp.configuration;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -9,6 +8,7 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import app.poc.secure.externalconsumerapp.rabbitmq.Receiver;
 
 @Component
 public class MessageConfig {
@@ -31,12 +31,6 @@ public class MessageConfig {
         return BindingBuilder.bind(queue).to(topicExchange).with("foo.bar.#");
     }
 
-    //not in tutorial
-    @Bean
-    MessageListenerAdapter adapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
-    }
-
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory factory, MessageListenerAdapter adapter) {
         final SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
@@ -46,4 +40,6 @@ public class MessageConfig {
         container.setConcurrentConsumers(2);
         return container;
     }
+
+
 }

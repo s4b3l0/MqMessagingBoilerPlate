@@ -1,7 +1,7 @@
-package clirunner;
+package com.example.demo;
 
 import com.example.demo.configuration.MessageConfig;
-import com.example.rabbitmq.Receiver;
+import com.example.demo.rabbitmq.Receiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +30,6 @@ public class Runner implements CommandLineRunner {
                 MessageConfig.topicExchangeName,
                 "foo.bar.baz",
                 "Hello from RabbitMq");
-        receiver.getLatch().await(100000, TimeUnit.MILLISECONDS);
+        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 }
